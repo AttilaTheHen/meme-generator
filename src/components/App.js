@@ -1,21 +1,21 @@
-import React, { Fragment, Component } from 'react';
+import React, { Component } from 'react';
 import styles from './App.css';
 import dom2image from 'dom-to-image';
 import fileSaver from 'file-saver';
 
 class App extends Component {
   state = {
-    topContent: 'this is where',
-    bottomContent: 'the fun begins',
+    topText: 'this is where',
+    bottomText: 'the fun begins',
     url: 'http://i.imgflip.com/1be86b.jpg'
   };
 
-  handleTopContentChange = (topContent = '') => {
-    this.setState({ topContent });
+  handleTopTextChange = (topText = '') => {
+    this.setState({ topText });
   };
 
-  handleBottomContentChange = (bottomContent = '') => {
-    this.setState({ bottomContent });
+  handleBottomTextChange = (bottomText = '') => {
+    this.setState({ bottomText });
   };
 
   handleBackgroundChoose = (url = '') => {
@@ -30,21 +30,21 @@ class App extends Component {
   };
 
   render() {
-    const { url, topContent, bottomContent } = this.state;
+    const { url, topText, bottomText } = this.state;
 
     return (
       <main className={styles.app}>
         <section>
           <h1>Meme Generator</h1>
-          <MemeText label='Top' content={topContent} onChange={this.handleTopContentChange}/>
-          <MemeText label='Bottom' content={bottomContent} onChange={this.handleBottomContentChange}/>
+          <MemeText label='Top' content={topText} onChange={this.handletopTextChange}/>
+          <MemeText label='Bottom' content={bottomText} onChange={this.handlebottomTextChange}/>
           <Background url={url} onChoose={this.handleBackgroundChoose}/>
         </section>
 
         <section className='dank-meme'>
           <h2>Here Be Your Dank Meme</h2>
           <section ref={node => this.image = node}>
-            <AddText topContent={topContent} bottomContent={bottomContent} url={url}/>
+            <AddText topText={topText} bottomText={bottomText} url={url}/>
           </section>
           <p>
             <button onClick={this.handleExport}>Save meme</button>
@@ -69,14 +69,12 @@ function MemeText({ content, onChange, label }) {
   );
 }
 
-function AddText({ url, topContent, bottomContent }) {
+function AddText({ url, topText, bottomText }) {
   return (
-    <Fragment>
-      <div style={{ background: `url(${url}) no-repeat center / auto 500px` }}>
-        <h3 id='top'>{topContent}</h3>
-        <h3 id='bottom'>{bottomContent}</h3>
-      </div>
-    </Fragment>
+    <div style={{ background: `url(${url}) no-repeat center / auto 500px` }}>
+      <h3 id='top'>{topText}</h3>
+      <h3 id='bottom'>{bottomText}</h3>
+    </div>
   );
 }
 
